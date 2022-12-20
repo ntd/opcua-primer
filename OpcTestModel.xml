@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<opc:ModelDesign
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:opc="http://opcfoundation.org/UA/ModelDesign.xsd"
+  xmlns:ua="http://opcfoundation.org/UA/"
+  xmlns:uax="http://opcfoundation.org/UA/2008/02/Types.xsd"
+  xmlns="http://www.entidi.com/UA/OpcTestModel"
+  TargetNamespace="http://www.entidi.com/UA/OpcTestModel">
+
+  <opc:Namespaces>
+    <opc:Namespace Name="OpcUa" Prefix="Opc.Ua" XmlNamespace="http://opcfoundation.org/UA/2008/02/Types.xsd">http://opcfoundation.org/UA/</opc:Namespace>
+    <opc:Namespace Name="OpcTestModel" Prefix="OpcTestModel">http://www.entidi.com/UA/OpcTestModel</opc:Namespace>
+  </opc:Namespaces>
+
+  <opc:ObjectType SymbolicName="GenericSensorType" BaseType="ua:BaseObjectType">
+    <opc:Description>A generic sensor that read a process value.</opc:Description>
+    <opc:Children>
+      <opc:Variable SymbolicName="Output" DataType="ua:Double" ValueRank="Scalar" TypeDefinition="ua:AnalogItemType"/>
+      <opc:Property SymbolicName="Units" DataType="ua:String" ValueRank="Scalar" AccessLevel="ReadWrite"/>
+    </opc:Children>
+  </opc:ObjectType>
+
+  <opc:ObjectType SymbolicName="GenericActuatorType" BaseType="ua:BaseObjectType">
+    <opc:Description>Represents a piece of equipment that causes some action to occur.</opc:Description>
+    <opc:Children>
+      <opc:Variable SymbolicName="Input" DataType="ua:Double" ValueRank="Scalar" TypeDefinition="ua:AnalogItemType" AccessLevel="ReadWrite"/>
+      <opc:Variable SymbolicName="Output" DataType="ua:Double" ValueRank="Scalar" TypeDefinition="ua:AnalogItemType" AccessLevel="ReadWrite"/>
+    </opc:Children>
+  </opc:ObjectType>
+
+  <opc:ObjectType SymbolicName="GenericMotorType" BaseType="ua:BaseObjectType">
+    <opc:Description>A generic motor.</opc:Description>
+    <opc:Children>
+      <opc:Variable SymbolicName="Speed" DataType="ua:Double" ValueRank="Scalar" TypeDefinition="ua:AnalogItemType" AccessLevel="ReadWrite"/>
+    </opc:Children>
+  </opc:ObjectType>
+
+  <opc:ObjectType SymbolicName="LevelIndicatorType" BaseType="GenericSensorType">
+    <opc:Description>A sensor that reports the level of material in a container.</opc:Description>
+  </opc:ObjectType>
+
+  <opc:ObjectType SymbolicName="LoadcellTransmitterType" BaseType="GenericSensorType">
+    <opc:Description>A sensor that reports the weight of an object.</opc:Description>
+    <opc:Children>
+      <opc:Variable SymbolicName="ExcitationVoltage" DataType="ua:Double" ValueRank="Scalar" TypeDefinition="ua:AnalogItemType" AccessLevel="ReadWrite"/>
+    </opc:Children>
+  </opc:ObjectType>
+
+  <opc:ObjectType SymbolicName="ValveType" BaseType="GenericActuatorType">
+    <opc:Description>An actuator that controls the flow of material.</opc:Description>
+  </opc:ObjectType>
+
+  <opc:ObjectType SymbolicName="MixerMotorType" BaseType="GenericMotorType">
+    <opc:Description>A motor for mixing materials.</opc:Description>
+  </opc:ObjectType>
+
+  <opc:ObjectType SymbolicName="ConveyorMotorType" BaseType="GenericMotorType">
+    <opc:Description>A motor for moving finished product.</opc:Description>
+  </opc:ObjectType>
+
+  <opc:ObjectType SymbolicName="Silo1Type" BaseType="ua:FolderType">
+    <opc:Children>
+      <opc:Object SymbolicName="Silo1LevelIndicator" TypeDefinition="LevelIndicatorType" SupportsEvents="true">
+        <opc:BrowseName>LI001</opc:BrowseName>
+      </opc:Object>
+      <opc:Object SymbolicName="Silo1DischargeValve" TypeDefinition="ValveType" SupportsEvents="true">
+        <opc:BrowseName>Valve001</opc:BrowseName>
+      </opc:Object>
+    </opc:Children>
+    <opc:References>
+      <opc:Reference>
+        <opc:ReferenceType>ua:HasNotifier</opc:ReferenceType>
+        <opc:TargetId>Silo1Type_Silo1LevelIndicator</opc:TargetId>
+      </opc:Reference>
+    </opc:References>
+  </opc:ObjectType>
+
+  <opc:ObjectType SymbolicName="Silo2Type" BaseType="ua:FolderType">
+    <opc:Children>
+      <opc:Object SymbolicName="Silo2LevelIndicator" TypeDefinition="LevelIndicatorType" SupportsEvents="true">
+        <opc:BrowseName>LI002</opc:BrowseName>
+      </opc:Object>
+      <opc:Object SymbolicName="Silo2DischargeValve" TypeDefinition="ValveType" SupportsEvents="true">
+        <opc:BrowseName>Valve002</opc:BrowseName>
+      </opc:Object>
+    </opc:Children>
+    <opc:References>
+      <opc:Reference>
+        <opc:ReferenceType>ua:HasNotifier</opc:ReferenceType>
+        <opc:TargetId>Silo2Type_Silo2LevelIndicator</opc:TargetId>
+      </opc:Reference>
+    </opc:References>
+  </opc:ObjectType>
+
+  <opc:ObjectType SymbolicName="Silo3Type" BaseType="ua:FolderType">
+    <opc:Children>
+      <opc:Object SymbolicName="Silo3LevelIndicator" TypeDefinition="LevelIndicatorType" SupportsEvents="true">
+        <opc:BrowseName>LI003</opc:BrowseName>
+      </opc:Object>
+      <opc:Object SymbolicName="Silo3DischargeValve" TypeDefinition="ValveType" SupportsEvents="true">
+        <opc:BrowseName>Valve003</opc:BrowseName>
+      </opc:Object>
+    </opc:Children>
+    <opc:References>
+      <opc:Reference>
+        <opc:ReferenceType>ua:HasNotifier</opc:ReferenceType>
+        <opc:TargetId>Silo3Type_Silo3LevelIndicator</opc:TargetId>
+      </opc:Reference>
+    </opc:References>
+  </opc:ObjectType>
+
+  <opc:ObjectType SymbolicName="MixerType" BaseType="ua:FolderType">
+    <opc:Children>
+      <opc:Object SymbolicName="LoadcellTransmitter" TypeDefinition="LoadcellTransmitterType" SupportsEvents="true">
+        <opc:BrowseName>LT001</opc:BrowseName>
+      </opc:Object>
+      <opc:Object SymbolicName="MixerMotor" TypeDefinition="MixerMotorType" SupportsEvents="true">
+        <opc:BrowseName>Motor01</opc:BrowseName>
+      </opc:Object>
+      <opc:Object SymbolicName="MixerDischargeValve" TypeDefinition="ValveType" SupportsEvents="true">
+        <opc:BrowseName>Valve004</opc:BrowseName>
+      </opc:Object>
+    </opc:Children>
+    <opc:References>
+      <opc:Reference>
+        <opc:ReferenceType>ua:HasNotifier</opc:ReferenceType>
+        <opc:TargetId>MixerType_LoadcellTransmitter</opc:TargetId>
+      </opc:Reference>
+    </opc:References>
+  </opc:ObjectType>
+
+  <opc:ObjectType SymbolicName="PackagingUnitType" BaseType="ua:FolderType">
+    <opc:Children>
+      <opc:Object SymbolicName="PackagingUnitLevelIndicator" TypeDefinition="LevelIndicatorType" SupportsEvents="true">
+        <opc:BrowseName>LI004</opc:BrowseName>
+      </opc:Object>
+    </opc:Children>
+    <opc:References>
+      <opc:Reference>
+        <opc:ReferenceType>ua:HasNotifier</opc:ReferenceType>
+        <opc:TargetId>PackagingUnitType_PackagingUnitLevelIndicator</opc:TargetId>
+      </opc:Reference>
+    </opc:References>
+  </opc:ObjectType>
+
+  <opc:ObjectType SymbolicName="ConveyorType" BaseType="ua:FolderType">
+    <opc:Children>
+      <opc:Object SymbolicName="ConveyorMotor" TypeDefinition="ConveyorMotorType" SupportsEvents="true">
+        <opc:BrowseName>Motor02</opc:BrowseName>
+      </opc:Object>
+    </opc:Children>
+    <opc:References>
+      <opc:Reference>
+        <opc:ReferenceType>ua:HasNotifier</opc:ReferenceType>
+        <opc:TargetId>ConveyorType_ConveyorMotor</opc:TargetId>
+      </opc:Reference>
+    </opc:References>
+  </opc:ObjectType>
+
+  <opc:ObjectType SymbolicName="BatchPlantType" BaseType="ua:BaseObjectType" SupportsEvents="true">
+    <opc:Description>A production batch plant.</opc:Description>
+    <opc:Children>
+      <opc:Object SymbolicName="Silo1" TypeDefinition="Silo1Type" SupportsEvents="true">
+        <opc:BrowseName>SiloX001</opc:BrowseName>
+        <opc:Children>
+          <opc:Object SymbolicName="Silo1LevelIndicator">
+            <opc:Children>
+              <opc:Variable SymbolicName="Output"/>
+              <opc:Variable SymbolicName="Units"/>
+            </opc:Children>
+          </opc:Object>
+          <opc:Object SymbolicName="DischargeValve">
+            <opc:Children>
+              <opc:Variable SymbolicName="Input"/>
+              <opc:Variable SymbolicName="Output"/>
+            </opc:Children>
+          </opc:Object>
+        </opc:Children>
+      </opc:Object>
+      <opc:Object SymbolicName="Silo2" TypeDefinition="Silo2Type" SupportsEvents="true">
+        <opc:BrowseName>SiloX002</opc:BrowseName>
+        <opc:Children>
+          <opc:Object SymbolicName="Silo2LevelIndicator">
+            <opc:Children>
+              <opc:Variable SymbolicName="Output"/>
+              <opc:Variable SymbolicName="Units"/>
+            </opc:Children>
+          </opc:Object>
+          <opc:Object SymbolicName="DischargeValve">
+            <opc:Children>
+              <opc:Variable SymbolicName="Input"/>
+              <opc:Variable SymbolicName="Output"/>
+            </opc:Children>
+          </opc:Object>
+        </opc:Children>
+      </opc:Object>
+      <opc:Object SymbolicName="Silo3" TypeDefinition="Silo3Type" SupportsEvents="true">
+        <opc:BrowseName>SiloX003</opc:BrowseName>
+        <opc:Children>
+          <opc:Object SymbolicName="Silo3LevelIndicator">
+            <opc:Children>
+              <opc:Variable SymbolicName="Output"/>
+              <opc:Variable SymbolicName="Units"/>
+            </opc:Children>
+          </opc:Object>
+          <opc:Object SymbolicName="DischargeValve">
+            <opc:Children>
+              <opc:Variable SymbolicName="Input"/>
+              <opc:Variable SymbolicName="Output"/>
+            </opc:Children>
+          </opc:Object>
+        </opc:Children>
+      </opc:Object>
+      <opc:Object SymbolicName="Mixer" TypeDefinition="MixerType" SupportsEvents="true">
+        <opc:BrowseName>MixerX001</opc:BrowseName>
+        <opc:Children>
+          <opc:Object SymbolicName="LoadcellTransmitter">
+            <opc:Children>
+              <opc:Variable SymbolicName="Output"/>
+              <opc:Variable SymbolicName="Units"/>
+            </opc:Children>
+          </opc:Object>
+          <opc:Object SymbolicName="MixerMotor">
+            <opc:Children>
+              <opc:Variable SymbolicName="Speed"/>
+            </opc:Children>
+          </opc:Object>
+          <opc:Object SymbolicName="DischargeValve">
+            <opc:Children>
+              <opc:Variable SymbolicName="Input"/>
+              <opc:Variable SymbolicName="Output"/>
+            </opc:Children>
+          </opc:Object>
+        </opc:Children>
+      </opc:Object>
+      <opc:Object SymbolicName="PackagingUnit" TypeDefinition="PackagingUnitType" SupportsEvents="true">
+        <opc:BrowseName>PackagingUnitX001</opc:BrowseName>
+        <opc:Children>
+          <opc:Object SymbolicName="PackagingUnitLevelIndicator">
+            <opc:Children>
+              <opc:Variable SymbolicName="Output"/>
+              <opc:Variable SymbolicName="Units"/>
+            </opc:Children>
+          </opc:Object>
+        </opc:Children>
+      </opc:Object>
+      <opc:Object SymbolicName="Conveyor" TypeDefinition="ConveyorType" SupportsEvents="true">
+        <opc:BrowseName>ConveyorX001</opc:BrowseName>
+        <opc:Children>
+          <opc:Object SymbolicName="ConveyorMotor">
+            <opc:Children>
+              <opc:Variable SymbolicName="Speed"/>
+            </opc:Children>
+          </opc:Object>
+        </opc:Children>
+      </opc:Object>
+      <opc:Method SymbolicName="StartProcess" ModellingRule="Mandatory"/>
+      <opc:Method SymbolicName="StopProcess" ModellingRule="Mandatory"/>
+    </opc:Children>
+    <opc:References>
+      <opc:Reference>
+        <opc:ReferenceType>ua:HasNotifier</opc:ReferenceType>
+        <opc:TargetId>BatchPlantType_Silo1</opc:TargetId>
+      </opc:Reference>
+      <opc:Reference>
+        <opc:ReferenceType>ua:HasNotifier</opc:ReferenceType>
+        <opc:TargetId>BatchPlantType_Silo2</opc:TargetId>
+      </opc:Reference>
+      <opc:Reference>
+        <opc:ReferenceType>ua:HasNotifier</opc:ReferenceType>
+        <opc:TargetId>BatchPlantType_Silo3</opc:TargetId>
+      </opc:Reference>
+      <opc:Reference>
+        <opc:ReferenceType>ua:HasNotifier</opc:ReferenceType>
+        <opc:TargetId>BatchPlantType_Mixer</opc:TargetId>
+      </opc:Reference>
+      <opc:Reference>
+        <opc:ReferenceType>ua:HasNotifier</opc:ReferenceType>
+        <opc:TargetId>BatchPlantType_PackagingUnit</opc:TargetId>
+      </opc:Reference>
+      <opc:Reference>
+        <opc:ReferenceType>ua:HasNotifier</opc:ReferenceType>
+        <opc:TargetId>BatchPlantType_Conveyor</opc:TargetId>
+      </opc:Reference>
+    </opc:References>
+  </opc:ObjectType>
+
+  <opc:Object SymbolicName="BatchPlant1" TypeDefinition="BatchPlantType" SupportsEvents="true">
+    <opc:BrowseName>Batch Plant #1</opc:BrowseName>
+    <opc:Children>
+      <opc:Object SymbolicName="Silo1" TypeDefinition="Silo1Type" SupportsEvents="true">
+        <opc:DisplayName>SiloX001</opc:DisplayName>
+      </opc:Object>
+      <opc:Object SymbolicName="Silo2" TypeDefinition="Silo2Type" SupportsEvents="true">
+        <opc:DisplayName>SiloX002</opc:DisplayName>
+      </opc:Object>
+      <opc:Object SymbolicName="Silo3" TypeDefinition="Silo3Type" SupportsEvents="true">
+        <opc:DisplayName>SiloX003</opc:DisplayName>
+      </opc:Object>
+      <opc:Object SymbolicName="Mixer" TypeDefinition="MixerType" SupportsEvents="true">
+        <opc:DisplayName>MixerX001</opc:DisplayName>
+      </opc:Object>
+      <opc:Object SymbolicName="PackagingUnit" TypeDefinition="PackagingUnitType" SupportsEvents="true">
+        <opc:DisplayName>PackagingUnitX001</opc:DisplayName>
+      </opc:Object>
+      <opc:Object SymbolicName="Conveyor" TypeDefinition="ConveyorType" SupportsEvents="true">
+        <opc:DisplayName>ConveyorX001</opc:DisplayName>
+      </opc:Object>
+    </opc:Children>
+    <opc:References>
+      <opc:Reference IsInverse="true">
+        <opc:ReferenceType>ua:Organizes</opc:ReferenceType>
+        <opc:TargetId>ua:ObjectsFolder</opc:TargetId>
+      </opc:Reference>
+    </opc:References>
+  </opc:Object>
+
+</opc:ModelDesign>
