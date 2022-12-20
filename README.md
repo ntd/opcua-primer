@@ -26,5 +26,6 @@ After a lot of trials and errors, I came up with a solution based on `docker`
 that does not require building and installing `UA-ModelCompiler` natively.
 See the `Makefile` for the gory details.
 
-The model design used by this project is an adaptation of the model from the
-[YouTube tutorial](https://youtu.be/gxA7SDNLHgc) by Industry40tv.
+The sample model design used here is an adaptation of the work done by
+_Industry40tv_ on its [YouTube tutorial](https://youtu.be/gxA7SDNLHgc): check
+it out for a really good introduction.
