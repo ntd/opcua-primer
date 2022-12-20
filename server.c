@@ -27,15 +27,21 @@ int main(void)
     UA_Server *server = UA_Server_new();
     UA_ServerConfig_setDefault(UA_Server_getConfig(server));
 
-
     retval = OpcTestModel(server);
     if (retval != UA_STATUSCODE_GOOD) {
         UA_LOG_ERROR(UA_Log_Stdout, UA_LOGCATEGORY_SERVER,
-                     "OpcTestModel returned %d", (int) retval);
-        return EXIT_FAILURE;
+                     "OpcTestModel() returned %u", (unsigned) retval);
+        goto bailout;
     }
 
     retval = UA_Server_run(server, &running);
+    if (retval != UA_STATUSCODE_GOOD) {
+        UA_LOG_ERROR(UA_Log_Stdout, UA_LOGCATEGORY_SERVER,
+                     "UA_Server_run() returned %u", (unsigned) retval);
+        goto bailout;
+    }
+
+bailout:
     UA_Server_delete(server);
     return retval == UA_STATUSCODE_GOOD ? EXIT_SUCCESS : EXIT_FAILURE;
 }
