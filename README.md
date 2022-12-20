@@ -6,7 +6,7 @@ format), convert it into another more machine-oriented XML file (the
 generate the C source code to be linked against other server code.
 
 The conversion from model design to NodeSet2 is performed by
-(UA-ModelCompiler)[https://github.com/OPCFoundation/UA-ModelCompiler], a tool
+[UA-ModelCompiler](https://github.com/OPCFoundation/UA-ModelCompiler), a tool
 officially supported by the OPC foundation, while the generation of the C code
 from NodeSet2 is performed by `nodeset_compiler.py`, a Python script provided
 by the [Open62541](https://github.com/open62541/open62541) project.
