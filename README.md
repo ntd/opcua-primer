@@ -7,7 +7,7 @@ then generate from it the C code to be linked against other server code.
 
 The conversion from model design to NodeSet2 is performed by
 [UA-ModelCompiler](https://github.com/OPCFoundation/UA-ModelCompiler), a tool
-officially supported by the OPC foundation, while the generation of the C code
+officially endorsed by the OPC foundation, while the generation of the C code
 from NodeSet2 is performed by `nodeset_compiler.py`, a Python script provided
 by the awesome [Open62541](https://github.com/open62541/open62541) project.
 
