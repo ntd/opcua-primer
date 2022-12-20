@@ -54,6 +54,4 @@ OpcTestModel.c OpcTestModel.h &: compiled/OpcTestModel.NodeSet2.xml
 	$(NODESETCOMPILER) -e deps/Opc.Ua.NodeSet2.xml -x $< OpcTestModel
 
 
-nodeset: compiled/OpcTestModel.NodeSet2.xml
-
 .phony: all clean check check-model
